@@ -3,51 +3,50 @@
 Hands-on Jupyter notebook for the Accenture internal knowledge-sharing session.  
 Walks from a bare LLM call all the way to a stateful agent with persistent memory.
 
-## What you'll build
+## What's inside
 
 | Step | Topic |
 |------|-------|
 | 1 | Plain LLM call |
-| 2 | Define tools (calculator + web search) |
+| 2 | Define tools — calculator + Tavily web search |
 | 3 | LLM with tool calling |
 | 4 | LangGraph agent workflow |
 | 5 | Human-in-the-Loop approval |
-| 6 | Memory — with vs without |
-| Bonus | Full agent (tools + memory combined) |
+| 6A | Without memory — agent forgets between calls |
+| 6B | With memory — agent remembers across turns |
+| Bonus | Full agent — tools + persistent memory |
 
 ## Prerequisites
 
 - Python ≥ 3.10
-- A Gemini API key (free at [aistudio.google.com](https://aistudio.google.com/app/apikey))
-- A Tavily API key (free tier at [app.tavily.com](https://app.tavily.com))
+- Gemini API key — [aistudio.google.com](https://aistudio.google.com/app/apikey) (free)
+- Tavily API key — [app.tavily.com](https://app.tavily.com) (free tier)
 
-## Quick start
+## Setup
 
 ```bash
-# 1. Clone / enter the repo
-cd langgraph-tutorial
-
-# 2. Create and activate the local virtual environment
+# 1. Create and activate the local venv
 python3 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
-# 3. Install dependencies
+# 2. Install dependencies
 pip install .
 
-# 4. Register the venv as a Jupyter kernel (one-time)
-python -m ipykernel install --user --name langgraph-tutorial \
-       --display-name "LangGraph Tutorial (.venv)"
+# 3. Register the venv as a Jupyter kernel (one-time)
+python -m ipykernel install --user \
+  --name langgraph-tutorial \
+  --display-name "LangGraph Tutorial (.venv)"
 
-# 5. Set up your API keys
+# 4. Copy and fill in your API keys
 cp .env.example .env
-# then edit .env and fill in your keys
+# edit .env with your GEMINI_API_KEY and TAVILY_API_KEY
 
-# 6. Open the notebook
+# 5. Launch
 jupyter lab agentic_ai_nutshell.ipynb
-# → select kernel "LangGraph Tutorial (.venv)"
+# select kernel → "LangGraph Tutorial (.venv)"
 ```
 
-> **Already set up?** Just `source .venv/bin/activate` before opening Jupyter.
+> Already set up? `source .venv/bin/activate` then open Jupyter.
 
 ## Environment variables
 
@@ -56,17 +55,16 @@ jupyter lab agentic_ai_nutshell.ipynb
 | `GEMINI_API_KEY` | Yes | Google Gemini model access |
 | `TAVILY_API_KEY` | Yes | Web search tool |
 | `LANGSMITH_API_KEY` | No | Trace runs in LangSmith UI |
-| `LANGSMITH_TRACING` | No | Set to `true` to enable tracing |
+| `LANGSMITH_TRACING` | No | Set `true` to enable tracing |
 
-Copy `.env.example` → `.env` and fill in your values. The `.env` file is git-ignored.
+Copy `.env.example` → `.env`. The `.env` file is git-ignored.
 
-## Model
+## Stack
 
-Uses **Gemini 2.5 Flash** (`gemini-2.5-flash`) via `langchain-google-genai`.
-
-## Tech stack
-
-- [LangGraph](https://langchain-ai.github.io/langgraph) — agent orchestration
-- [LangChain Google GenAI](https://python.langchain.com/docs/integrations/chat/google_generative_ai/) — Gemini model
-- [Tavily](https://docs.tavily.com) — web search
-- [LangSmith](https://smith.langchain.com) — observability (optional)
+| | |
+|-|-|
+| Model | Gemini 2.5 Flash via `langchain-google-genai` |
+| Orchestration | [LangGraph](https://langchain-ai.github.io/langgraph) |
+| Search | [Tavily](https://docs.tavily.com) |
+| Observability | [LangSmith](https://smith.langchain.com) (optional) |
+| Dependencies | `pyproject.toml` — direct deps only |
