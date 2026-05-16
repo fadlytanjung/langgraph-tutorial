@@ -27,17 +27,27 @@ Walks from a bare LLM call all the way to a stateful agent with persistent memor
 # 1. Clone / enter the repo
 cd langgraph-tutorial
 
-# 2. Install dependencies
-pip install langgraph langchain-google-genai langchain-community \
-            tavily-python python-dotenv ipykernel
+# 2. Create and activate the local virtual environment
+python3 -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
-# 3. Set up your API keys
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Register the venv as a Jupyter kernel (one-time)
+python -m ipykernel install --user --name langgraph-tutorial \
+       --display-name "LangGraph Tutorial (.venv)"
+
+# 5. Set up your API keys
 cp .env.example .env
 # then edit .env and fill in your keys
 
-# 4. Open the notebook
+# 6. Open the notebook
 jupyter lab agentic_ai_nutshell.ipynb
+# → select kernel "LangGraph Tutorial (.venv)"
 ```
+
+> **Already set up?** Just `source .venv/bin/activate` before opening Jupyter.
 
 ## Environment variables
 
